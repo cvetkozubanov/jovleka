@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JOVKELA UFC</title>
+<style>
+.img {
+	width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 270px;
+    left: 360px;
+}
+
+.i0 {
+    clip: rect(0px, 50px, 210px, 0px);
+}
+.i1 {
+    clip: rect(0px, 100px, 210px, 50px);
+    transform: translateX(-50px);
+}
+.i2 {
+    clip: rect(0px, 150px, 210px, 100px);
+    transform: translateX(-100px);
+}
+.i3 {
+    clip: rect(0px, 200px, 210px, 150px);
+    transform: translateX(-150px);
+}
+.background {
+	width: 1000px;
+    height: 500px;
+    position: absolute;
+}
+</style>
+
+
+<script>
+var index = 0;
+var interval = 100;
+function kick() {
+  setTimeout(() => {
+  	if (index++ < 3) {
+  		document.getElementById("kicker").className = "img i" + index;
+  		kick();
+  	} else {
+  		index = 0;
+  		document.getElementById("kicker").className = "img i0";
+  	}
+  }, interval);
+}
+function throttle(func, timeFrame) {
+  var lastTime = 0;
+  return function () {
+      var now = Date.now();
+      if (now - lastTime >= timeFrame) {
+          func();
+          lastTime = now;
+      }
+  };
+}
+var throttledKick = throttle(kick, 4 * interval);
+</script>
+
+</head>
+<body onkeypress="throttledKick()">
+
+
+<img class="background" src="background.png" width="1" height="1">
+<img id="kicker" class="img i0" src="player-removebg-preview.png" >
+
+</body>
+</html>
+
+
+
